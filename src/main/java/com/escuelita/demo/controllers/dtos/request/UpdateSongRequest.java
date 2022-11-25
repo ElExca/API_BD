@@ -6,5 +6,4 @@ import lombok.Setter;
 @Getter @Setter
 public class UpdateSongRequest {
 private String name;
-private String duration;
 }

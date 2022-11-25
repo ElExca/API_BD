@@ -7,8 +7,6 @@ import lombok.Setter;
 public class GetSongResponse {
     private Long id;
     private String name;
-    private String duration;
-    private String date;
     private String songUrl;
     private ArtistResponse artist;
     private GenreResponse genre;

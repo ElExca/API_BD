@@ -76,8 +76,6 @@ public class SongLikeServiceImpl implements ISongLikeService {
         GetSongResponse response = new GetSongResponse();
         response.setId(song.getId());
         response.setName(song.getName());
-        response.setDate(song.getDate());
-        response.setDuration(song.getDuration());
         response.setSongUrl(song.getSong_Url());
         response.setArtist(from(artistService.findById(song.getArtist_Id())));
         response.setGenre(from(genreService.findById(song.getGenre_Id())));
@@ -102,8 +100,6 @@ public class SongLikeServiceImpl implements ISongLikeService {
         SongResponse response = new SongResponse();
         response.setId(song.getId());
         response.setName(song.getName());
-        response.setDuration(song.getDuration());
-        response.setDate(song.getDate());
         response.setSongUrl(song.getSongUrl());
         response.setArtist(from(song.getArtist()));
         response.setGenre(from(song.getGenre()));

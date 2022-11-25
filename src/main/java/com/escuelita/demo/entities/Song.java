@@ -19,10 +19,6 @@ public class Song {
 
     private String name;
 
-    private String duration;
-
-    private String date;
-
     private String songUrl;
 
     @OneToMany(mappedBy = "song")

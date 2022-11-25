@@ -91,17 +91,14 @@ public class SongServiceImpl implements ISongService {
 
     private Song update(Song song, UpdateSongRequest request) {
         song.setName(request.getName());
-        song.setDuration(request.getDuration());
         return repository.save(song);
     }
 
     private Song from(CreateSongRequest request) {
         Song song = new Song();
         song.setName(request.getName());
-        song.setDuration(request.getDuration());
-        song.setArtist(artistService.findById(request.getArtistId()));
+        song.setArtist(artistService.findByName(request.getArtistName()));
         song.setGenre(genreService.findById(request.getGenreId()));
-        song.setDate(request.getDate());
         song.setSongUrl(request.getSongUrl());
         return song;
     }
@@ -110,8 +107,6 @@ public class SongServiceImpl implements ISongService {
         GetSongResponse response = new GetSongResponse();
         response.setId(song.getId());
         response.setName(song.getName());
-        response.setDuration(song.getDuration());
-        response.setDate(song.getDate());
         response.setSongUrl(song.getSongUrl());
         response.setArtist(from(song.getArtist()));
         response.setGenre(from(song.getGenre()));

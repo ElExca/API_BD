@@ -10,10 +10,6 @@ public class SongResponse {
 
     private String name;
 
-    private String duration;
-
-    private String date;
-
     private String songUrl;
 
     private ArtistResponse artist;

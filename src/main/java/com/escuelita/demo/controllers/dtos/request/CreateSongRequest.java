@@ -7,15 +7,11 @@ import lombok.Setter;
 public class CreateSongRequest {
     private String name;
 
-    private String duration;
-
-    private String date;
-
     private String songUrl;
 
     private Long likeId;
 
-    private Long artistId;
+    private String artistName;
 
     private Long genreId;
 

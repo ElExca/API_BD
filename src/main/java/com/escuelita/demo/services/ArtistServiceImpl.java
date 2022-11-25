@@ -64,7 +64,27 @@ public class ArtistServiceImpl implements IArtistService {
         artist = update(artist, request);
         return from(artist);
     }
+    @Override
+    public BaseResponse get(String name) {
+        GetArtistResponse response=from(name);
+        return BaseResponse.builder()
+                .data(response)
+                .message("Artist has been getted")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK).build();
+    }
 
+    @Override
+    public Artist findByName(String name) {
+        return repository.findByName(name)
+                .orElseThrow(()-> new RuntimeException("The Artist does not exist"));
+    }
+
+    private GetArtistResponse from(String name){
+        return repository.findByName(name).
+                map(this::from)
+                .orElseThrow(()-> new RuntimeException("The Artist does not exist"));
+    }
     private Artist update(Artist artist, UpdateArtistRequest request) {
         artist.setName(request.getName());
         return repository.save(artist);

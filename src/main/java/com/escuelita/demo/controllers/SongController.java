@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 @RestController
 @RequestMapping("song")
+@CrossOrigin("*")
 public class SongController {
     @Autowired
     private ISongService service;

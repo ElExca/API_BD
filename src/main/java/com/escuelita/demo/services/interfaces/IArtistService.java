@@ -21,4 +21,8 @@ public interface IArtistService {
     GetArtistResponse update(Long id, UpdateArtistRequest request);
 
     Artist findById(Long id);
+
+    BaseResponse get(String name);
+
+    Artist findByName(String name);
 }
