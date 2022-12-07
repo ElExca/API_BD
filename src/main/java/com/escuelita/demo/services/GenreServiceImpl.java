@@ -30,6 +30,27 @@ public class GenreServiceImpl implements IGenreService {
                 .map(this::from)
                 .collect(Collectors.toList());
     }
+    @Override
+    public BaseResponse get(String name) {
+        GetGenreResponse response=from(name);
+        return BaseResponse.builder()
+                .data(response)
+                .message("Genre has been getted")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK).build();
+    }
+
+    @Override
+    public Genre findByName(String name) {
+        return repository.findByName(name)
+                .orElseThrow(()-> new RuntimeException("The Artist does not exist"));
+    }
+
+    private GetGenreResponse from(String name){
+        return repository.findByName(name).
+                map(this::from)
+                .orElseThrow(()-> new RuntimeException("The Artist does not exist"));
+    }
 
     @Override
     public GetGenreResponse get(Long id){

@@ -11,7 +11,8 @@ public interface IUserService{
 
     GetUserResponse get(Long id);
 
-    List<GetUserResponse> list();
+    BaseResponse list();
+
 
     void delete(Long id);
 

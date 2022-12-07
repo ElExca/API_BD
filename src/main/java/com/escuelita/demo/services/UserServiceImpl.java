@@ -7,18 +7,23 @@ import com.escuelita.demo.controllers.dtos.response.GetUserResponse;
 import com.escuelita.demo.controllers.dtos.response.LikeResponse;
 import com.escuelita.demo.entities.Like;
 import com.escuelita.demo.entities.User;
+import com.escuelita.demo.entities.projections.UserProjection;
 import com.escuelita.demo.repositories.IUserRepository;
+import com.escuelita.demo.security.UserDetailsImpl;
 import com.escuelita.demo.services.interfaces.ILikeService;
 import com.escuelita.demo.services.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpl implements IUserService{
 
     @Autowired
     IUserRepository repository;
@@ -32,12 +37,17 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public List<GetUserResponse> list(){
-        return repository
+    public BaseResponse list() {
+        List<GetUserResponse> response = repository
                 .findAll()
                 .stream()
                 .map(this::from)
                 .collect(Collectors.toList());
+        return BaseResponse.builder()
+                .data(response)
+                .message("List of Clients have been obtained correctly")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK).build();
     }
 
 
@@ -103,4 +113,5 @@ public class UserServiceImpl implements IUserService {
     response.setId(like.getId());
     return response;
     }
+
 }

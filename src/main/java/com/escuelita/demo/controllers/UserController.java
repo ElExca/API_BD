@@ -3,17 +3,17 @@ package com.escuelita.demo.controllers;
 import com.escuelita.demo.controllers.dtos.request.CreateUserRequest;
 import com.escuelita.demo.controllers.dtos.request.UpdateUserRequest;
 import com.escuelita.demo.controllers.dtos.response.BaseResponse;
-import com.escuelita.demo.controllers.dtos.response.CreateUserResponse;
 import com.escuelita.demo.controllers.dtos.response.GetUserResponse;
 import com.escuelita.demo.services.interfaces.IUserService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
-
+@CrossOrigin("*")
 @RestController
+@AllArgsConstructor
 @RequestMapping("user")
 public class UserController {
     @Autowired
@@ -21,8 +21,9 @@ public class UserController {
 
     //SEE ALL USER
     @GetMapping
-    public List<GetUserResponse> list() {
-        return service.list();
+    public ResponseEntity<BaseResponse> list() {
+        BaseResponse baseResponse = service.list();
+        return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
     //SEE BY ID
@@ -50,8 +51,4 @@ public class UserController {
     }
 
 
-    @GetMapping("Login")
-    public String Login() {
-        return "ok";
-    }
 }

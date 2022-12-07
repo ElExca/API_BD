@@ -13,6 +13,6 @@ public class CreateSongRequest {
 
     private String artistName;
 
-    private Long genreId;
+    private String genreName;
 
 }

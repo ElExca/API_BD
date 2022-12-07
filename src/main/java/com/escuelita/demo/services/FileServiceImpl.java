@@ -31,25 +31,21 @@ public class FileServiceImpl implements IFileService {
     private String SECRET_KEY = "XbL/uAJAzmC+CNOGLtUZcj6IcEgRxoxq/1E3sJ/E";
 
 
+
     @Override
     public String upload(MultipartFile multipartFile) {
-        String fileUrl = ""; //Esta variable String es el nombre del URL donde el archivo va a quedar publico
-
+        String fileUrl = "";
         try {
             File file = convertMultiPartToFile(multipartFile);
-
             String fileName = generateFileName(multipartFile);
-
             fileUrl = "https://" + BUCKET_NAME + "." + ENDPOINT_URL + "/" + fileName;
-
-            uploadFileToS3Bucket(fileName, file);
+            uploadFileTos3bucket(fileName, file);
             file.delete();
-
         } catch (Exception e) {
             e.printStackTrace();
         }
         return fileUrl;
-    }//JAVA IO FILE
+    }
 
     private File convertMultiPartToFile(MultipartFile file) throws IOException {
         File convFile = new File(file.getOriginalFilename());
@@ -59,14 +55,13 @@ public class FileServiceImpl implements IFileService {
         return convFile;
     }
 
-    private String generateFileName(MultipartFile multiPart) {
-        return multiPart.getOriginalFilename().replace(" ", "_");//Obten el nombre original y remplaza espacios vacios con un guion bajo
+    private String generateFileName(MultipartFile multipartFile) {
+        return multipartFile.getOriginalFilename().replace(" ", "_");
     }
 
-    private void uploadFileToS3Bucket(String fileName, File file) {
-        PutObjectRequest putObjectRequest = new PutObjectRequest(BUCKET_NAME, fileName, file)
-                .withCannedAcl(CannedAccessControlList.PublicRead);
-        s3client.putObject(putObjectRequest);
+    private void uploadFileTos3bucket(String fileName, File file) {
+        s3client.putObject(new PutObjectRequest(BUCKET_NAME, fileName, file)
+                .withCannedAcl(CannedAccessControlList.PublicRead));
     }
 
     @PostConstruct

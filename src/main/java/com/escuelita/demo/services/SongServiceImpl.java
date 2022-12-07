@@ -98,7 +98,7 @@ public class SongServiceImpl implements ISongService {
         Song song = new Song();
         song.setName(request.getName());
         song.setArtist(artistService.findByName(request.getArtistName()));
-        song.setGenre(genreService.findById(request.getGenreId()));
+        song.setGenre(genreService.findByName(request.getGenreName()));
         song.setSongUrl(request.getSongUrl());
         return song;
     }
